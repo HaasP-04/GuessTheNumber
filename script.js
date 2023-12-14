@@ -7,10 +7,18 @@ function randomNumber(userGuess, computersNumber) {
 
     // YOUR CODE BELOW
 
+    if (userGuess < 1 || userGuess > 100) {
+        return "Please enter a number between 1 and 100!";
+    } else if (userGuess < computersNumber) {
+        return "Higher";
+    } else if (userGuess > computersNumber) {
+        return "Lower";
+    } else {
+        return "The number was " + computersNumber + "!";
+    }
 
 
-
-    // YOUR CODE ABOVE
+    //? YOUR CODE ABOVE
 };
 
 
@@ -30,11 +38,18 @@ function randomNumber(userGuess, computersNumber) {
     You are not limited to just these functions. Feel free to create a new function that may be called to help manage the flow of your code.
 */
 
+let lowestValue = 1;
+let highestValue = 100;
+let currentGuess = Math.floor((lowestValue + highestValue) / 2);
+let numberOfGuesses = 0;
+
 function startCompGuess(num) {
     // This should return a string that denotes the first guessed number
 
-    // YOUR CODE ...
-
+    //? YOUR CODE ...
+    currentGuess = Math.floor((lowestValue + highestValue) / 2);
+    numberOfGuesses = 0;
+    return "Is your number " + currentGuess + "?";
 
 }
 
@@ -44,6 +59,19 @@ function compGuess(reply) {
 
     This should return a string indicating the computers response.
     */
-
+    numberOfGuesses++;
+    if (reply === "lower") {
+        highestValue = currentGuess - 1;
+        currentGuess = Math.floor((lowestValue + highestValue) / 2);
+        return "Is your number " + currentGuess + "?";
+    } else if (reply === "higher") {
+        lowestValue = currentGuess + 1;
+        currentGuess = Math.floor((lowestValue + highestValue) / 2);
+        return "Is your number " + currentGuess + "?";
+    } else if (reply === "correct") {
+        return "I guessed your number in " + numberOfGuesses + " guesses!";
+    } else {
+        return "Please select 'lower', 'higher', or 'correct'.";
+    }
 }
 
